@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>👸お姫様抱っこシミュレーター</title>
+    <title>👸公主抱模拟器</title>
     <style>
         :root { --panel-width: 300px; }
-        body { margin: 0; font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background: #ffffff; overflow: hidden; }
-        /* #ui-panel の更新 */
+        body { margin: 0; font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif; background: #ffffff; overflow: hidden; }
+        /* #ui-panel 的更新 */
         #ui-panel {
             position: absolute; 
             top: 10px; 
             left: 10px; 
             width: var(--panel-width);
             max-height: calc(100vh - 20px);
-            max-height: calc(100dvh - 20px); /* 可変ビューポート対応 */
+            max-height: calc(100dvh - 20px); /* 适配可变视口 */
             background: rgba(255, 255, 255, 0.95); 
             padding: 15px; 
             padding-bottom: 40px; 
@@ -44,7 +44,7 @@
             .input-group { padding: 8px; margin-bottom: 5px; }
         }
 
-        /* 折りたたんだ（閉じた）時の専用スタイル */
+        /* 折叠（收起）状态的专用样式 */
         #ui-panel.collapsed {
             max-height: none !important;
             padding: 10px 15px !important;
@@ -54,11 +54,11 @@
         }
 
         @media screen and (max-width: 480px) { 
-            /* スマホ表示で閉じた場合、右端の固定を解除してタイトルサイズへ収める */
+            /* 手机端收起时解除右端固定，收进标题尺寸 */
             #ui-panel.collapsed { right: auto; }
         }
 
-        /* ヘッダーをパネル上部に固定（スクロールしても上に張り付く） */
+        /* 头部固定在面板顶部（滚动时依然吸顶） */
         .panel-header { 
             display: flex; 
             justify-content: space-between; 
@@ -66,8 +66,8 @@
             cursor: pointer; 
             user-select: none; 
             gap: 10px; 
-            position: sticky; /* パネル内スクロール時も上に固定 */
-            top: -15px;       /* padding 分を相殺 */
+            position: sticky; /* 面板内滚动时同样置顶 */
+            top: -15px;       /* 抵消 padding 的高度 */
             background: rgba(255, 255, 255, 0.95);
             padding: 10px 0;
             margin: -15px -15px 10px -15px;
@@ -83,7 +83,7 @@
             background: #eee; 
             padding: 4px 10px; 
             border-radius: 10px; 
-            white-space: nowrap; /* テキストの意図しない改行を防止 */
+            white-space: nowrap; /* 防止文本意外换行 */
         }
         .collapsed #ui-content { display: none; }
 
@@ -92,7 +92,7 @@
             margin: 0; 
             color: #333; 
             font-weight: bold; 
-            white-space: nowrap; /* タイトルの改行を防止 */
+            white-space: nowrap; /* 防止标题换行 */
         }
         .app-description { font-size: 11px; color: #777; margin-top: 8px; margin-bottom: 5px; line-height: 1.5; text-align: center; }
         
@@ -127,13 +127,13 @@
 
         .color-picker { width: 100%; height: 38px; border: 2px solid #999; border-radius: 4px; cursor: pointer; padding: 0; background: none; appearance: none; -webkit-appearance: none; }
         
-        /* ラジオボタン切替エリア（外枠・背景） */
+        /* 单选按钮切换区（外框・背景） */
         .radio-switch { display: flex; gap: 4px; background: #eee; padding: 3px; border-radius: 8px; margin-top: 2px; }
-        /* 選択肢（ボタン部分）のベース */
+        /* 选项（按钮部分）的基础样式 */
         .radio-switch label { flex: 1; text-align: center; font-size: 11px; font-weight: bold; padding: 6px 0; border-radius: 6px; cursor: pointer; color: #666; transition: 0.2s; user-select: none; }
-        /* 本来のラジオボタン丸アイコンを非表示にする */
+        /* 隐藏原本的单选圆形图标 */
         .radio-switch input { display: none; }
-        /* 選択されている項目のスタイル（白背景＆影をつける） */
+        /* 被选中项的样式（白底加阴影） */
         .radio-switch input:checked + label { background: white; color: #333; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
         .switch-btn { width: 100%; padding: 12px; background: #333; color: white; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 14px; -webkit-tap-highlight-color: transparent; margin-bottom: 10px; }
@@ -202,76 +202,76 @@
 
 <div id="ui-panel">
     <div class="panel-header" onclick="togglePanel()">
-        <h1 class="app-title">👸お姫様抱っこシミュレーター</h1>
-        <span id="toggle-text">閉じる</span>
+        <h1 class="app-title">👸公主抱模拟器</h1>
+        <span id="toggle-text">收起</span>
     </div>
 
     <div id="ui-content">
-        <p class="app-description">性別と身長からお姫様抱っこをシミュレーションします。</p>
+        <p class="app-description">可根据性别与身高模拟公主抱。</p>
         
         <div class="input-group group-a">
-            <div class="section-header"><strong>A (抱っこされる方)</strong></div>
+            <div class="section-header"><strong>A（被抱的一方）</strong></div>
             <div class="input-row">
-                <div class="input-item"><span class="hint">名前</span><input type="text" id="nameA" placeholder="名前A" oninput="updateScene()"></div>
-                <div class="input-item" style="flex: 0.6;"><span class="hint">性別</span><select id="genderA" onchange="updateScene()"><option value="male">男</option><option value="female" selected>女</option></select></div>
+                <div class="input-item"><span class="hint">名字</span><input type="text" id="nameA" placeholder="名字A" oninput="updateScene()"></div>
+                <div class="input-item" style="flex: 0.6;"><span class="hint">性别</span><select id="genderA" onchange="updateScene()"><option value="male">男</option><option value="female" selected>女</option></select></div>
             </div>
             <div class="input-row">
-                <div class="input-item"><span class="hint">身長 (cm)</span><input type="number" id="heightA" value="158.0" step="0.1" oninput="updateScene()"></div>
-                <div class="input-item" style="flex: 0.35;"><span class="hint">色</span><input type="color" id="colorA" class="color-picker" value="#ffcc99" oninput="updateScene()"></div>
+                <div class="input-item"><span class="hint">身高 (cm)</span><input type="number" id="heightA" value="158.0" step="0.1" oninput="updateScene()"></div>
+                <div class="input-item" style="flex: 0.35;"><span class="hint">颜色</span><input type="color" id="colorA" class="color-picker" value="#ffcc99" oninput="updateScene()"></div>
             </div>
         </div>
 
         <div class="input-group group-b">
-            <div class="section-header"><strong>B (抱っこする方)</strong></div>
+            <div class="section-header"><strong>B（抱人的一方）</strong></div>
             <div class="input-row">
-                <div class="input-item"><span class="hint">名前</span><input type="text" id="nameB" placeholder="名前B" oninput="updateScene()"></div>
-                <div class="input-item" style="flex: 0.6;"><span class="hint">性別</span><select id="genderB" onchange="updateScene()"><option value="male" selected>男</option><option value="female">女</option></select></div>
+                <div class="input-item"><span class="hint">名字</span><input type="text" id="nameB" placeholder="名字B" oninput="updateScene()"></div>
+                <div class="input-item" style="flex: 0.6;"><span class="hint">性别</span><select id="genderB" onchange="updateScene()"><option value="male" selected>男</option><option value="female">女</option></select></div>
             </div>
             <div class="input-row">
-                <div class="input-item"><span class="hint">身長 (cm)</span><input type="number" id="heightB" value="171.5" step="0.1" oninput="updateScene()"></div>
-                <div class="input-item" style="flex: 0.35;"><span class="hint">色</span><input type="color" id="colorB" class="color-picker" value="#ffad60" oninput="updateScene()"></div>
+                <div class="input-item"><span class="hint">身高 (cm)</span><input type="number" id="heightB" value="171.5" step="0.1" oninput="updateScene()"></div>
+                <div class="input-item" style="flex: 0.35;"><span class="hint">颜色</span><input type="color" id="colorB" class="color-picker" value="#ffad60" oninput="updateScene()"></div>
             </div>
         </div>
 
         <div class="input-group group-layout">
-            <div class="section-header"><strong>配置設定</strong></div>
+            <div class="section-header"><strong>布局设置</strong></div>
             <div class="input-item" style="margin-bottom: 8px;">
-                <span class="hint">お姫様抱っこの向き</span>
+                <span class="hint">公主抱的朝向</span>
                 <div class="radio-switch">
-                    <!-- 1. 左側から -->
+                    <!-- 1. 从左侧 -->
                     <input type="radio" id="side-left" name="chairSide" value="left" checked onchange="updateScene()">
-                    <label for="side-left">左側から</label>
+                    <label for="side-left">从左侧</label>
 
-                    <!-- 2. 右側から -->
+                    <!-- 2. 从右侧 -->
                     <input type="radio" id="side-right" name="chairSide" value="right" onchange="updateScene()">
-                    <label for="side-right">右側から</label>
+                    <label for="side-right">从右侧</label>
                 </div>
             </div>
         </div>
 
         <div style="padding: 0 5px;">
-            <button class="switch-btn swap-btn" onclick="swapAB()">⇄ AとBを入れ替える</button>
-            <button class="switch-btn" onclick="switchView()">🔄 視点を切り替える</button>
+            <button class="switch-btn swap-btn" onclick="swapAB()">⇄ 交换 A 与 B</button>
+            <button class="switch-btn" onclick="switchView()">🔄 切换视角</button>
         </div>
         
         <div id="info-container">
             <div class="info-box" id="info"></div>
             <button class="share-btn" onclick="shareToX()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>で結果をシェアする
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg> 分享结果
             </button>
             <div class="other-tools-link">
-                <p style="font-size: 10px; color: #888; margin-bottom: 8px;">こちらもチェック❣🤩</p>
-                <a href="https://qwertyaz111.github.io/my-site-hub/">ツール・シミュレーター一覧</a>
+                <p style="font-size: 10px; color: #888; margin-bottom: 8px;">顺便也看看这些❣🤩</p>
+                <a href="https://qwertyaz111.github.io/my-site-hub/">工具・模拟器合集</a>
             </div>
             <div class="usage-notes">
-                スクショ投稿や加工、トレース等はご自由にお楽しみください。<br>
-                ※営利目的や商用利用はご遠慮ください。
+                截图分享、二次加工、临摹描图等都可以随意使用。<br>
+                ※请勿用于营利、商业用途。
             </div>
         </div>
     </div>
 </div>
 
-<div id="view-label">三人称視点</div>
+<div id="view-label">第三人称视角</div>
 <div class="crosshair" id="crosshair" style="display:none;"></div>
 <div id="canvas-container"></div>
 
@@ -281,10 +281,10 @@ import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
 let scene, camera, renderer, clock;
 let personA, personB, walkGroup;
 let currentView = '3rd';
-let carrySide = 1; // 抱っこの向き：1＝Bの左腕で背中を支える（Aの頭が左） / -1＝Bの右腕で背中を支える（Aの頭が右）
-const LEAN = -0.12; // お姫様抱っこ時のBの上半身の傾き(rad)（マイナス＝少し後ろへ反る）
+let carrySide = 1; // 公主抱的朝向：1＝用 B 的左臂托住背部（A 的头在左） / -1＝用 B 的右臂托住背部（A 的头在右）
+const LEAN = -0.12; // 公主抱时 B 上半身的倾斜(rad)（负值＝略微向后仰）
 const AXIS_X = new THREE.Vector3(1, 0, 0);
-const DEFAULT_ROT_3RD = { x: 0.2, y: 0.45 }; // 三人称の初期は斜め前から見る
+const DEFAULT_ROT_3RD = { x: 0.2, y: 0.45 }; // 第三人称初始从斜前方看
 let rotation = { x: DEFAULT_ROT_3RD.x, y: DEFAULT_ROT_3RD.y }, camDist = 3, isDragging = false, previousTouch = null, initialPinchDist = null;
 
 function init() {
@@ -329,17 +329,17 @@ function init() {
         const panel = document.getElementById('ui-panel');
         const text = document.getElementById('toggle-text');
         panel.classList.toggle('collapsed');
-        text.innerText = panel.classList.contains('collapsed') ? '開く' : '閉じる';
+        text.innerText = panel.classList.contains('collapsed') ? '展开' : '收起';
     };
 
-    // 入力フォームからフォーカスが外れた際に、パネルのスクロール位置を上部へリセットする
+    // 输入框失焦时，把面板的滚动位置重置回顶部
     document.querySelectorAll('#ui-panel input, #ui-panel select').forEach(element => {
         element.addEventListener('blur', () => {
             const panel = document.getElementById('ui-panel');
             if (panel) {
                 panel.scrollTop = 0;
             }
-            // iOS Safari等の画面全体のズレ防止策
+            // 防止 iOS Safari 等设备上整屏偏移的对策
             window.scrollTo(0, 0);
         });
     });
@@ -408,7 +408,7 @@ function createMannequin(color, heightCm, gender, name, role, otherConfig) {
 
     group.arms = [];
     const armThickness = torsoW * 0.3;
-    const shoulderW = (torsoW * 0.5) + (armThickness * 0.2); // 肩の回転軸を胴体の側面ぎりぎりに置いて、腕を動かしても胴体から離れすぎないようにする（大きいほど離れる）
+    const shoulderW = (torsoW * 0.5) + (armThickness * 0.2); // 把肩膀的旋转轴放在紧贴躯干侧面的位置，即使活动手臂也不会离躯干太远（数值越大越远）
     const shoulderY = legH + torsoH - (torsoW * 0.15); 
     const armLen = h * 0.38;
 
@@ -451,8 +451,8 @@ function createMannequin(color, heightCm, gender, name, role, otherConfig) {
     return group;
 }
 
-// ===== ポーズ用ヘルパー =====
-// 腰を軸に上半身(頭・首・胴・腕・名前タグ)を前傾させる
+// ===== 姿势用的辅助函数 =====
+// 以腰为轴，让上半身（头・颈・躯干・手臂・名字标签）前倾
 function applyLean(p, angle) {
     const pivot = new THREE.Group();
     pivot.position.y = p.userData.legH;
@@ -463,7 +463,7 @@ function applyLean(p, angle) {
     p.pivot = pivot;
 }
 
-// 腕・脚の棒を2分割して関節(肘・膝)を作る
+// 把手臂・腿部的棍状物一分为二，做出关节（肘・膝）
 function addJoint(anchor) {
     const mesh = anchor.children[0];
     const half = mesh.geometry.parameters.height / 2;
@@ -480,21 +480,21 @@ function addJoint(anchor) {
     anchor.half = half;
 }
 
-// 真下向きの棒を dir の向きへ回す（回転順 XYZ）
+// 把朝正下方的棍子转向 dir 的方向（旋转顺序 XYZ）
 function aim(node, dir) {
     const d = dir.clone().normalize();
     node.rotation.z = Math.asin(Math.max(-1, Math.min(1, d.x)));
     node.rotation.x = Math.atan2(-d.z, -d.y);
 }
 
-// dirUpper/dirLower は anchor の親座標系での向き
+// dirUpper/dirLower 为 anchor 父级坐标系中的朝向
 function aimLimb(anchor, dirUpper, dirLower) {
     aim(anchor, dirUpper);
     const inv = anchor.quaternion.clone().invert();
     aim(anchor.joint, dirLower.clone().applyQuaternion(inv));
 }
 
-// 2関節IK：肩S→手Tに届く肘位置Eを返す（poleは肘の曲がる方向）
+// 双关节 IK：返回从肩 S 到手 T 的肘位置 E（pole 为肘部弯曲方向）
 function solveTwoBone(S, T, l1, l2, pole) {
     const v = T.clone().sub(S);
     let d = v.length();
@@ -512,62 +512,62 @@ function solveTwoBone(S, T, l1, l2, pole) {
     return { E, H };
 }
 
-// ワールド方向 → 前傾した上半身(pivot)のローカル方向
+// 世界方向 → 前倾上半身(pivot) 的局部方向
 function toLocal(v) {
     return v.clone().applyAxisAngle(AXIS_X, -LEAN);
 }
 
-// BがAをお姫様抱っこするポーズ（A＝抱っこされる人 / B＝抱っこする人）
+// B 公主抱 A 的姿势（A＝被抱的人 / B＝抱人的人）
 function setupPrincessCarry(A, B) {
     const a = A.userData, b = B.userData;
-    const m = carrySide;     // 左右の向き（1：頭がBの左側 / -1：頭がBの右側）
-    const TORSO_RAISE = 1.5; // Aが股関節で上半身を起こす角度(rad)：大きいほど胴体と太ももが深く折れ曲がる（0.7＝寝そべり気味 / 1.0＝約57° / 1.3＝約74° / 1.57＝真上）
+    const m = carrySide;     // 左右朝向（1：头在 B 的左侧 / -1：头在 B 的右侧）
+    const TORSO_RAISE = 1.5; // A 以髋关节抬起上半身的角度(rad)：越大躯干与大腿折叠越深（0.7＝偏躺 / 1.0＝约 57° / 1.3＝约 74° / 1.57＝垂直）
 
-    applyLean(B, LEAN);           // Bは少し反り気味に立って、Aの重さを支える
-    applyLean(A, TORSO_RAISE);    // Aは股関節で折れて、上半身が斜めに起き上がる（脚は水平のまま）
+    applyLean(B, LEAN);           // B 略微后仰站立，支撑住 A 的重量
+    applyLean(A, TORSO_RAISE);    // A 在髋部折起，上半身斜着抬起（腿保持水平）
     B.arms.forEach(arm => addJoint(arm));
     A.arms.forEach(arm => addJoint(arm));
     A.legs.forEach(leg => addJoint(leg));
 
-    // Aの脚は仰向け姿勢（足＝Bの右側 -X）、上半身は股関節から斜めに起こして頭＝Bの左側(+X)・斜め上へ
-    const legTilt = -0.45; // 太ももの角度(rad)：マイナスで膝が持ち上がる（0.0＝水平）
-    const eyL = new THREE.Vector3(m * Math.cos(legTilt), Math.sin(legTilt), 0);    // 脚側の「足→頭」方向
-    const ezL = new THREE.Vector3(-m * Math.sin(legTilt), Math.cos(legTilt), 0);   // 脚側の「お腹側（上）」方向
+    // A 的腿呈仰躺姿势（脚＝B 的右侧 -X），上半身从髋部斜着抬起，头＝B 的左侧(+X)・斜上方
+    const legTilt = -0.45; // 大腿的角度(rad)：负值会让膝盖抬起（0.0＝水平）
+    const eyL = new THREE.Vector3(m * Math.cos(legTilt), Math.sin(legTilt), 0);    // 腿部一侧的“脚→头”方向
+    const ezL = new THREE.Vector3(-m * Math.sin(legTilt), Math.cos(legTilt), 0);   // 腿部一侧的“腹部（上方）”方向
     const ex = new THREE.Vector3(0, 0, m);
     const qA = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(ex, eyL, ezL));
     const qInv = qA.clone().invert();
     A.quaternion.copy(qA);
-    const phi = legTilt + TORSO_RAISE;                                          // 上半身の傾き
-    const eyT = new THREE.Vector3(m * Math.cos(phi), Math.sin(phi), 0);            // 上半身の「腰→頭」方向
-    const ezT = new THREE.Vector3(-m * Math.sin(phi), Math.cos(phi), 0);           // 上半身の「お腹側」方向
+    const phi = legTilt + TORSO_RAISE;                                          // 上半身的倾斜
+    const eyT = new THREE.Vector3(m * Math.cos(phi), Math.sin(phi), 0);            // 上半身的“腰→头”方向
+    const ezT = new THREE.Vector3(-m * Math.sin(phi), Math.cos(phi), 0);           // 上半身的“腹部一侧”方向
 
     const halfLegA = A.legs[0].half;
-    const tBack = a.torsoH * 0.7;      // Bの左手が支える位置（背中）：Aの腰からの距離
-    const tKnee = -halfLegA;           // Bの右手が支える位置（膝関節＝膝裏）：Aの腰からの距離
+    const tBack = a.torsoH * 0.7;      // B 左手支撑的位置（背部）：距 A 腰部的距离
+    const tKnee = -halfLegA;           // B 右手支撑的位置（膝关节＝膝窝）：距 A 腰部的距离
 
-    // Aの腰の位置：Bの胴体の前に、Bの両手が左右対称になるように配置
+    // A 腰部的位置：放在 B 躯干前方，使 B 双手左右对称
     const hipB = new THREE.Vector3(0, b.legH, 0);
     const zC = b.depth / 2 + a.width / 2 + 0.03;
     const xHip = m * (-((tBack * Math.cos(phi) + tKnee * Math.cos(legTilt)) / 2) - 0.10);
-    const hipA = new THREE.Vector3(xHip, b.legH + b.torsoH * 0.25, zC); // 抱っこの高さ：小さいほどAの位置が低くなる（元は0.4）
-    const hipL = new THREE.Vector3(0, a.legH, 0);                               // A座標での股関節位置
+    const hipA = new THREE.Vector3(xHip, b.legH + b.torsoH * 0.25, zC); // 抱起的高度：越小 A 的位置越低（原来是 0.4）
+    const hipL = new THREE.Vector3(0, a.legH, 0);                               // A 坐标系下的髋关节位置
     const p0 = hipA.clone().sub(hipL.clone().applyQuaternion(qA));
     A.position.copy(p0);
 
-    // A座標（上半身は股関節で回転済み）→ ワールド
+    // A 坐标系（上半身已在髋部旋转过）→ 世界坐标
     const upperToWorld = (v) => v.clone().sub(hipL).applyAxisAngle(AXIS_X, TORSO_RAISE).add(hipL).applyQuaternion(qA).add(p0);
-    // ワールド方向 → Aの上半身(pivot)のローカル方向
+    // 世界方向 → A 上半身(pivot) 的局部方向
     const toLocalA = (v) => v.clone().applyQuaternion(qInv).applyAxisAngle(AXIS_X, -TORSO_RAISE);
-    // Bの体上の点（直立時の高さyで指定）
+    // B 身体上的点（用直立时的高度 y 指定）
     const bodyB = (x, y, z) => new THREE.Vector3(x, y - b.legH, z).applyAxisAngle(AXIS_X, LEAN).add(hipB);
 
-    // 名前タグの位置調整：Aの頭の横に浮かべる（Aは回転しているのでA上半身の座標へ変換）
+    // 调整名字标签：浮在 A 的头侧（A 已旋转，需转换到 A 上半身的坐标）
     const headWorld = upperToWorld(new THREE.Vector3(0, a.eyeY, 0));
     const tagWorld = headWorld.clone().add(new THREE.Vector3(m * 0.6, 0.25, 0));
     A.nameTag.position.copy(tagWorld.sub(p0).applyQuaternion(qInv).sub(hipL).applyAxisAngle(AXIS_X, -TORSO_RAISE));
 
-    // Aの脚：太ももは体と同じ向きに伸ばし、膝で曲げてふくらはぎは下へ垂らす
-    const flex = 1.3; // 膝の曲げ角(rad)：大きいほどふくらはぎ・足先が下にだらんと垂れる（前は0.9）
+    // A 的腿：大腿与身体同向伸展，膝盖弯曲，小腿自然下垂
+    const flex = 1.3; // 膝盖的弯曲角(rad)：越大小腿・脚尖越松垮下垂（之前是 0.9）
     A.legs.forEach((leg, i) => {
         const s = i === 0 ? -1 : 1;
         const up = new THREE.Vector3(s * 0.04, -1, 0).normalize();
@@ -575,8 +575,8 @@ function setupPrincessCarry(A, B) {
         aimLimb(leg, up, lo);
     });
 
-    // Bの腕：左手はAの背中の下、右手はAの膝裏の下に回して「下から抱え上げる」
-    //  手（前腕）がAの体にぴったり触れる位置を狙い、腕が届かない場合は支える位置を腰側へずらして必ず接触させる
+    // B 的手臂：左手绕到 A 背下，右手绕到 A 膝窝下，“从下方托抱起来”
+    //  瞄准手（前臂）紧贴 A 身体的位置；若手臂够不到，就把支撑点往腰侧偏移，确保一定接触到
     const holdBack = (tt) => hipA.clone()
         .add(eyT.clone().multiplyScalar(tt))
         .add(ezT.clone().multiplyScalar(-(a.depth / 2 + b.armThick / 2 - 0.008)));
@@ -592,25 +592,25 @@ function setupPrincessCarry(A, B) {
             T = (s === m) ? holdBack(tt) : holdKnee(tt);
             T.z = zC + a.width * (s === m ? 0.3 : 0.2);
             if (T.distanceTo(S) <= arm.half * 2 * 0.93) break;
-            tt *= 0.9; // 届かないときは腰に近い位置を支える
+            tt *= 0.9; // 够不到时改为支撑靠近腰部的位置
         }
-        // 肘は体の横・やや後ろ・下に張り出す
+        // 肘部向身体侧面・略微靠后下方张开
         const { E, H } = solveTwoBone(S, T, arm.half, arm.half, new THREE.Vector3(s * 0.8, -1, -0.5));
         aimLimb(arm, toLocal(E.clone().sub(S)), toLocal(H.clone().sub(E)));
     });
 
-    // Aの腕：Bの首に抱きついて、腕で輪っかを作る
-    //  Bに近い側の腕＝Bの左肩の上を越えて、首の「後ろ」を通り首の右後ろへ
-    //  遠い側の腕＝Bの首の「前」を通って、首の右横へ（両手が首の右側で出会って輪になる）
-    //  肘は首・頭から離れる向き（近い腕は後ろ、遠い腕は前）へ、少し低めに張り出して、腕を寝かせる
+    // A 的手臂：搂住 B 的脖子，用手臂围成一个圈
+    //  靠近 B 一侧的手臂＝越过 B 的左肩，绕到脖子的“后方”，再到脖子右后侧
+    //  较远一侧的手臂＝经过 B 脖子的“前方”，到脖子右侧（双手在脖子右侧相遇成圈）
+    //  肘部朝远离脖子・头的方向（近侧手臂向后、远侧手臂向前）略微低垂地张开，让手臂放平
     A.arms.forEach((arm, i) => {
-        const s = i === 0 ? -1 : 1; // A座標のx
-        const near = (s * m) < 0;   // ワールドでBに近い側（zが小さい側）の腕か
+        const s = i === 0 ? -1 : 1; // A 坐标系的 x
+        const near = (s * m) < 0;   // 是否是世界中更靠近 B 一侧（z 较小一侧）的手臂
         const S = upperToWorld(new THREE.Vector3(s * a.shoulderW, a.shoulderY, 0));
         const T = near
             ? bodyB(-m * 0.035, b.height * 0.82, -0.095)
             : bodyB(-m * 0.09, b.height * 0.82, -0.02);
-        const pole = near ? new THREE.Vector3(m * 0.5, -0.4, -1) : new THREE.Vector3(m * 0.2, 0.1, 1); // 肘の高さ（Y）を下げるほど腕が寝る
+        const pole = near ? new THREE.Vector3(m * 0.5, -0.4, -1) : new THREE.Vector3(m * 0.2, 0.1, 1); // 肘部高度（Y）越低，手臂越平躺
         const { E, H } = solveTwoBone(S, T, arm.half, arm.half, pole);
         aimLimb(arm, toLocalA(E.clone().sub(S)), toLocalA(H.clone().sub(E)));
     });
@@ -622,7 +622,7 @@ function updateScene() {
     const gA = document.getElementById('genderA').value;
     const gB = document.getElementById('genderB').value;
 
-    // 抱っこの向きが変わったら、三人称視点の初期位置も左右反転させる
+    // 若公主抱朝向改变，第三人称视角的初始位置也左右翻转
     const newSide = (document.querySelector('input[name="chairSide"]:checked').value === 'right') ? -1 : 1;
     if (newSide !== carrySide && currentView === '3rd') { rotation.y = DEFAULT_ROT_3RD.y * newSide; }
     carrySide = newSide;
@@ -641,14 +641,14 @@ function updateScene() {
 
     if(currentView !== '3rd') {
         const myName = (currentView === 'A') ? nA : nB;
-        document.getElementById('view-label').innerText = `${myName} の視点`;
+        document.getElementById('view-label').innerText = `${myName} 的视角`;
         if(currentView === 'A') { personA.headParts.visible = false; personA.nameTag.visible = false; }
         if(currentView === 'B') { personB.headParts.visible = false; personB.nameTag.visible = false; }
     }
 
     document.getElementById('info').innerHTML = `
         <div class="info-row">
-            <span class="info-label">📏 身長差</span>
+            <span class="info-label">📏 身高差</span>
             <span class="info-value">${Math.abs(hA-hB).toFixed(1)}<span class="unit">cm</span></span>
         </div>
     `;
@@ -657,8 +657,8 @@ function updateScene() {
 function animate() {
     requestAnimationFrame(animate);
 
-    // Bは腕の中のAを見つめ、AはBの顔を見上げる自然な頭部の向き
-    // 顔（目）がまっすぐ相手の顔の方を向くように、lookAtで向きを決める（目が斜めに傾かない）
+    // B 注视怀中的 A，A 抬头看着 B 的脸，做出自然的头部朝向
+    // 用 lookAt 决定朝向，使脸（眼睛）正对对方的脸（眼睛不会歪斜）
     const eyeAWorld = personA.headParts.getWorldPosition(new THREE.Vector3());
     const eyeBWorld = personB.headParts.getWorldPosition(new THREE.Vector3());
     personB.headParts.lookAt(eyeAWorld);
@@ -679,7 +679,7 @@ function animate() {
         camera.up.set(0, 1, 0);
         const other = (currentView === 'A' ? personB : personA);
         self.headParts.getWorldPosition(camera.position);
-        // お姫様抱っこでは、おたがいの顔を見つめる向きが正面
+        // 公主抱时，彼此凝视对方脸的方向为正面
         camera.lookAt(other.headParts.getWorldPosition(new THREE.Vector3()));
 
         camera.rotateY(rotation.y);
@@ -749,10 +749,10 @@ function switchView() {
     const nB = document.getElementById('nameB').value||'B';
     
     if (currentView === '3rd') {
-        document.getElementById('view-label').innerText = '三人称視点';
+        document.getElementById('view-label').innerText = '第三人称视角';
     } else {
         const myName = (currentView === 'A') ? nA : nB;
-        document.getElementById('view-label').innerText = `${myName} の視点`;
+        document.getElementById('view-label').innerText = `${myName} 的视角`;
     }
 
     document.getElementById('crosshair').style.display = currentView === '3rd' ? 'none' : 'block';
@@ -769,11 +769,78 @@ function shareToX() {
     const nB = document.getElementById('nameB').value || 'B';
     const hA = parseFloat(document.getElementById('heightA').value) || 158.0;
     const hB = parseFloat(document.getElementById('heightB').value) || 171.5;
-    const text = `${nB}(${hB.toFixed(1)}cm)が${nA}(${hA.toFixed(1)}cm)をお姫様抱っこ！\n#お姫様抱っこシミュレーター\n`;
+    const text = `${nB}（${hB.toFixed(1)}cm）把 ${nA}（${hA.toFixed(1)}cm）公主抱了！\n#公主抱模拟器\n`;
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
 }
 
 init();
+</script>
+
+<script>
+/* 设置持久化：名字・身高・颜色等会记住，刷新后自动恢复 */
+(function () {
+  var KEY = 'simSettings:' + location.pathname;
+  var SKIP = { seek: 1, pVol: 1 };
+  function list() {
+    var els = document.querySelectorAll('input,select,textarea'), out = [], i, el;
+    for (i = 0; i < els.length; i++) {
+      el = els[i];
+      if (el.type === 'file' || el.type === 'button' || el.type === 'submit' || el.type === 'reset') continue;
+      if (el.id && SKIP[el.id]) continue;
+      out.push(el);
+    }
+    return out;
+  }
+  function keyOf(el) {
+    if (el.id) return 'id:' + el.id;
+    var cn = (el.className || '').split(/\s+/)[0];
+    if (!cn) return null;
+    var sibs = document.querySelectorAll(el.tagName.toLowerCase() + '[class~="' + cn + '"]'), i;
+    for (i = 0; i < sibs.length; i++) if (sibs[i] === el) return 'cls:' + cn + ':' + i;
+    return null;
+  }
+  function get(el) {
+    return (el.type === 'checkbox' || el.type === 'radio') ? el.checked : el.value;
+  }
+  function set(el, v) {
+    var i;
+    if (el.tagName === 'SELECT') {
+      var ok = false;
+      for (i = 0; i < el.options.length; i++) if (el.options[i].value === v) ok = true;
+      if (!ok) return;
+    }
+    if (el.type === 'checkbox' || el.type === 'radio') el.checked = !!v;
+    else el.value = v;
+  }
+  function fire(el, type) {
+    try { el.dispatchEvent(new Event(type, { bubbles: true })); } catch (e) {}
+  }
+  function restore() {
+    var raw = null, data = null, els, k, i;
+    try { raw = localStorage.getItem(KEY); } catch (e) { return; }
+    if (!raw) return;
+    try { data = JSON.parse(raw); } catch (e) { return; }
+    els = list();
+    for (i = 0; i < els.length; i++) { k = keyOf(els[i]); if (k && data[k] !== undefined) set(els[i], data[k]); }
+    for (i = 0; i < els.length; i++) { fire(els[i], 'input'); fire(els[i], 'change'); }
+    for (i = 0; i < els.length; i++) { k = keyOf(els[i]); if (k && data[k] !== undefined) set(els[i], data[k]); }
+  }
+  var timer = null;
+  function save() {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      var els = list(), data = {}, k, i;
+      for (i = 0; i < els.length; i++) { k = keyOf(els[i]); if (k) data[k] = get(els[i]); }
+      try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
+    }, 200);
+  }
+  document.addEventListener('input', save, true);
+  document.addEventListener('change', save, true);
+  window.addEventListener('load', restore);
+  window.__simSettings = {
+    clear: function () { try { localStorage.removeItem(KEY); } catch (e) {} }
+  };
+})();
 </script>
 </body>
 </html>
